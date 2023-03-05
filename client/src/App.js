@@ -5,6 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PostPage from "./pages/PostPage";
+import LogoutPage from "./pages/LogoutPage";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
         }
       />
       <Route exact path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route exact path="/register" element={<RegisterPage />} />
+      <Route exact path="/logout" element={<LogoutPage />}  />
+      <Route exact path="/createpost" element={<CreatePost />} />
     </Routes>
   );
 }

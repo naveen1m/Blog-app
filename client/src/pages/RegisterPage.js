@@ -24,9 +24,11 @@ function RegisterPage() {
       password: password,
     };
     axios.post('/api/register', user)
-      .then(res => console.log(`mongo data : ${res.data}`))
+      .then(res => {
+        navigate('/login')
+        console.log(`mongo data : ${res.data}`)})
       .catch(err => console.log(err))
-      navigate('/login')
+      
   }
   return (
     <form onSubmit={handleSubmit}>
