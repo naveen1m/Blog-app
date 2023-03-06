@@ -43,17 +43,17 @@ function LoginPage() {
         <h1 className="ml-2 font-bold ">MyBlog</h1>
       </div>
       <div className="mx-auto my-auto w-[600px] h-[100%]  ">
-        <div className="container h-[700px] my-auto flex flex-col  ">
+        <div className="container  h-[700px] my-auto flex flex-col  ">
           <div className="flex flex-col mx-auto my-auto gap-3  ">
+            <h1 className="text-2xl tracking-wider font-semibold text-center">Hello!</h1>
             <label htmlFor="password">
-              Email:
-              <input type="email" value={email} onChange={handleEmailChange} />
+              <input type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
             </label>
             <label htmlFor="password">
-              Password :
               <input
                 type="password"
                 name="password"
+                placeholder="Password"
                 id=""
                 value={password}
                 onChange={handlePasswordChange}
@@ -61,14 +61,14 @@ function LoginPage() {
             </label>
 
             <button
-              className="bg-blue-500 hover:bg-blue-700"
+              className="rounded-sm bg-blue-500 hover:bg-blue-700 hover:text-white duration-300"
               type="submit"
             >
-              login
+              Sign in
             </button>
             <p className="text-center">
               No account?
-              <Link to="/register"> <span className="text-[violet]">Register</span>
+              <Link to="/register"> <span className="text-[#4c4cd3] hover:text-[blue] hover:underline duration-300">Register</span>
               </Link>
             </p>
           </div>

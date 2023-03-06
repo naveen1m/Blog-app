@@ -6,10 +6,14 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 function RegisterPage() {
+  const [username,setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  function handleUsernameChange(event){
+      setUsername(event.target.value);
+  }
   function handleEmailChange(event){
       setEmail(event.target.value);
   }
@@ -38,14 +42,17 @@ function RegisterPage() {
     <div className="mx-auto my-auto w-[600px] h-[100%]  ">
       <div className="container h-[700px] my-auto flex flex-col  ">
         <div className="flex flex-col mx-auto my-auto gap-3  ">
-            
-          <label  htmlFor="email">Email: 
-          <input  type="email" value={email} onChange={handleEmailChange} /> </label>
-          <label  htmlFor="password">Password :  
-          <input  type="password" value={password} onChange={handlePasswordChange}  id=""  /></label>
+            <h1 className='text-2xl tracking-wide font-semibold text-center'>Register here!</h1>
+          <label  htmlFor="name">
+          <input  type="text" placeholder='Username' value={username} onChange={handleUsernameChange} /> </label>
+          <label  htmlFor="email"> 
+          <input  type="email" placeholder='Email' value={email} onChange={handleEmailChange} /> </label>
+          <label  htmlFor="password">  
+          <input  type="password" placeholder='Password' value={password} onChange={handlePasswordChange}  id=""  /></label>
           
-        <button className="bg-blue-500 hover:bg-blue-700" type="submit">Register</button>
-          <p className='text-center'>Already registered? <Link to='/login'> <span className='text-blue-500'>login</span></Link></p>
+        <button className="
+       rounded-sm bg-blue-500 hover:bg-blue-700 hover:text-white duration-300" type="submit">Sign up</button>
+          <p className='text-center'>Already registered? <Link to='/login'> <span className='text-[#4c4cd3] hover:text-[blue] hover:underline'>login</span></Link></p>
         </div>
         
       </div>

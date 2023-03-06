@@ -11,11 +11,11 @@ function Header() {
       <h1 className='ml-2 font-bold '>MyBlog</h1>
       {token && (
         <>
-        <Link to='/createpost' className='ml-3 hover:bg-slate-300 '>create new post</Link>
-        <Link to='/logout' className='ml-3 hover:bg-slate-300'>logout</Link>
+        <Link to='/createpost' className='ml-3 px-1 rounded-sm hover:bg-slate-300 '>create new post</Link>
+        <Link to='/logout' className='ml-3 px-1 rounded-sm  hover:bg-slate-300'>logout</Link>
         </>
       )}
-      {!token && <Link to="/login" className='ml-3 hover:bg-slate-300'>Login</Link>}
+      {!token && <Link to="/login" className='ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300'>Login</Link>}
       
     </div>
   )
