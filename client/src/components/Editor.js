@@ -15,12 +15,17 @@ function Editor({value,onChange}) {
       ["link", "image"],
       ["clean"],
     ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
   };
   return(
-    <div className="content">
+    <div className="content ">
     <ReactQuill
       value={value}
       theme={'snow'}
+      
       onChange={onChange}
       modules={modules} />
     </div>

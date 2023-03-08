@@ -24,6 +24,7 @@ function RegisterPage() {
   function handleSubmit(event){
     event.preventDefault();
     const user = {
+      username:username,
       email: email,
       password: password,
     };
@@ -44,11 +45,11 @@ function RegisterPage() {
         <div className="flex flex-col mx-auto my-auto gap-3  ">
             <h1 className='text-2xl tracking-wide font-semibold text-center'>Register here!</h1>
           <label  htmlFor="name">
-          <input  type="text" placeholder='Username' value={username} onChange={handleUsernameChange} /> </label>
+          <input  type="text" className='px-1' placeholder='Username' value={username} onChange={handleUsernameChange} /> </label>
           <label  htmlFor="email"> 
-          <input  type="email" placeholder='Email' value={email} onChange={handleEmailChange} /> </label>
+          <input  type="email" className='px-1' placeholder='Email' value={email} onChange={handleEmailChange} /> </label>
           <label  htmlFor="password">  
-          <input  type="password" placeholder='Password' value={password} onChange={handlePasswordChange}  id=""  /></label>
+          <input  type="password" className='px-1' placeholder='Password' value={password} onChange={handlePasswordChange}  id=""  /></label>
           
         <button className="
        rounded-sm bg-blue-500 hover:bg-blue-700 hover:text-white duration-300" type="submit">Sign up</button>

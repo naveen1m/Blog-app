@@ -11,7 +11,7 @@ function Header() {
       <h1 className='ml-2 font-bold '>MyBlog</h1>
       {token && (
         <>
-        <Link to='/createpost' className='ml-3 px-1 rounded-sm hover:bg-slate-300 '>create new post</Link>
+        <Link to='/create' className='ml-3 px-1 rounded-sm hover:bg-slate-300 '>create new post</Link>
         <Link to='/logout' className='ml-3 px-1 rounded-sm  hover:bg-slate-300'>logout</Link>
         </>
       )}

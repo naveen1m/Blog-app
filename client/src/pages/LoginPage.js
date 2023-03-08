@@ -22,10 +22,11 @@ function LoginPage() {
       email: email,
       password: password,
     };
-    axios.post('/api/login', user)
+    axios.post('/api/login', user,{ headers: { Authorization:localStorage.getItem('token') } })
       .then(res =>{
         const token = res.data.token;
-        localStorage.setItem('token' ,token)
+        localStorage.setItem("token" ,token)
+        console.log(token)
         navigate('/')
         console.log(`logged in data : ${res.data}`)
       } )
@@ -47,11 +48,12 @@ function LoginPage() {
           <div className="flex flex-col mx-auto my-auto gap-3  ">
             <h1 className="text-2xl tracking-wider font-semibold text-center">Hello!</h1>
             <label htmlFor="password">
-              <input type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
+              <input type="email" className='px-1' placeholder="Email" value={email} onChange={handleEmailChange} />
             </label>
             <label htmlFor="password">
               <input
                 type="password"
+                className='px-1'
                 name="password"
                 placeholder="Password"
                 id=""

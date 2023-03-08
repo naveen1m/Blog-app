@@ -9,7 +9,7 @@ function LogoutPage() {
             localStorage.removeItem('token');
             setLoading(false)
             navigate('/')
-        },1000)
+        },600)
         
     },[])
     

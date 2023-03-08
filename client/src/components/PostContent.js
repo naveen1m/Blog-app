@@ -2,7 +2,7 @@ import React from "react";
 
 function PostContent() {
   return (
-    <div className="mx-auto md:w-[1550px]  bg-gray-200 mt-5 mb-2 md:grid grid-cols-4 gap-2 rounded hover:shadow-lg hover:translate-y-[0.03rem] ">
+    <div className="mx-auto md:w-[1550px]   bg-gray-200 mt-5 mb-2 md:grid grid-cols-4 gap-2 rounded hover:shadow-lg hover:translate-y-[0.03rem] ">
       <div className="col-span-1 mx-auto my-auto p-1">
         <img
           src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAZvR64.img?w=800&h=415&q=60&m=2&f=jpg"

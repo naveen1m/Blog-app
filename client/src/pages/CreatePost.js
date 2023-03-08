@@ -1,7 +1,6 @@
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Editor from "../components/Editor";
 import axios from "axios";
 
@@ -13,6 +12,7 @@ export default function CreatePost() {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
+  const navigate = useNavigate();
 
   async function createNewPost(ev) {
     ev.preventDefault();
@@ -23,8 +23,11 @@ export default function CreatePost() {
     data.set("file", files[0]);
 
     await axios
-      .post("/api/postblog", data)
-      .then((res) => console.log(res.data + " -done"))
+      .post("/api/postblog", data, { headers: { Authorization:localStorage.getItem('token') }})
+      .then((res) =>{ 
+        console.log(res.data + " -done")
+        navigate('/')
+      })
       .catch((err) => console.log(err));
   }
   return (
@@ -35,6 +38,7 @@ export default function CreatePost() {
       <form onSubmit={createNewPost} className="mx-auto md:w-[800px] mt-2">
         <input
           type="title"
+          className="px-1"
           placeholder={"Title"}
           value={title}
           onChange={(ev) => setTitle(ev.target.value)}
@@ -42,9 +46,10 @@ export default function CreatePost() {
         <input
           type="summary"
           placeholder={"Summary"}
+          
           value={summary}
           onChange={(ev) => setSummary(ev.target.value)}
-          className="my-1"
+          className="my-1 px-1 mx-1"
         />
         <input
           type="file"

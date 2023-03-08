@@ -7,25 +7,34 @@ import RegisterPage from "./pages/RegisterPage";
 import PostPage from "./pages/PostPage";
 import LogoutPage from "./pages/LogoutPage";
 import CreatePost from "./pages/CreatePost";
+import Post from "./components/Post";
+import BlogPage from "./pages/BlogPage";
+import PostDemo from "./pages/PostDemo";
+import UserContextProvider from "./components/UserContext";
 
 function App() {
   return (
-    <Routes>
-      <Route
-        index
-        element={
-          <main className="bg-gray-100  ">
-            <Header />
-            <PostPage />
-            <Footer />
-          </main>
-        }
-      />
-      <Route exact path="/login" element={<LoginPage />} />
-      <Route exact path="/register" element={<RegisterPage />} />
-      <Route exact path="/logout" element={<LogoutPage />}  />
-      <Route exact path="/createpost" element={<CreatePost />} />
-    </Routes>
+    <UserContextProvider>
+      <Routes>
+        <Route
+          index
+          element={
+            <main className="bg-gray-100">
+              <Header />
+              {/* <Post /> */}
+              <BlogPage />
+              <PostDemo />
+              <Footer />
+            </main>
+          }
+        />
+        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/logout" element={<LogoutPage />} />
+        <Route exact path="/create" element={<CreatePost />} />
+        <Route exact path="/post/:id" element={<PostPage />} />
+      </Routes>
+    </UserContextProvider>
   );
 }
 export default App;
