@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from './userSchema.js'
 
 const { Schema, model } = mongoose;
 
@@ -10,7 +11,7 @@ const postSchema = new Schema(
     cover: String,
     author: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: User,
     },
   },
   { timestamps: true }

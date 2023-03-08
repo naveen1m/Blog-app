@@ -2,14 +2,17 @@ import express from "express";
 import cors from 'cors';
 import connect from "./database/mongodbConnection.js";
 import router from "./router/route.js";
+import path from 'path'
 
 
 const port = process.env.PORT || '8080'
 /** middlewares */
 const app = express();
+const __dirname = path.resolve();
 app.use(express.json());
-app.use(cors());
+app.use(cors({credentials:true,origin:'http://localhost:8080'}));
 app.disable('x-powered-by');  // less hacker know about our stack
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 /** HTTP request */
 app.get('/',(req,res)=>{
