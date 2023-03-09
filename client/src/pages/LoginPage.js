@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-// backend domain
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,17 +23,12 @@ function LoginPage() {
       .then(res =>{
         const token = res.data.token;
         localStorage.setItem("token" ,token)
-        console.log(token)
         navigate('/')
         console.log(`logged in data : ${res.data}`)
       } )
       .catch(err => console.log('not logged in'+err))
-      // navigate('/login')
-  
-    // console.log(event)
-    // console.log(`email ${email}`)
-    // console.log(`password ${password}`)
-  }
+
+    }
 
   return (
     <form onSubmit={handleSubmit}>

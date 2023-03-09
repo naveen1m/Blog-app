@@ -10,6 +10,7 @@ function BlogPage() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
+      
       axios
         .get("/api/getblog")
         .then((response) => {

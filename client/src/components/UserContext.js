@@ -5,12 +5,13 @@ export const UserContext = createContext({});
 function UserContextProvider({children}) {
     const [userInfo,setUserInfo] = useState({});
   return (
-    <div>
-      <createContext.provider value={{userInfo,setUserInfo}}>
+    <UserContext.Provider value={{userInfo,setUserInfo}}>
+      
         {children}
-      </createContext.provider>
-    </div>
+      
+    </UserContext.Provider>
   )
 }
+
 
 export default UserContextProvider

@@ -10,7 +10,7 @@ const port = process.env.PORT || '8080'
 const app = express();
 const __dirname = path.resolve();
 app.use(express.json());
-app.use(cors({credentials:true,origin:'http://localhost:8080'}));
+app.use(cors());
 app.disable('x-powered-by');  // less hacker know about our stack
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 

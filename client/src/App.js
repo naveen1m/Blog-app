@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
@@ -11,6 +11,8 @@ import Post from "./components/Post";
 import BlogPage from "./pages/BlogPage";
 import PostDemo from "./pages/PostDemo";
 import UserContextProvider from "./components/UserContext";
+import EditPost from "./pages/EditPost";
+import Postdelete from "./pages/Postdelete";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
         <Route exact path="/logout" element={<LogoutPage />} />
         <Route exact path="/create" element={<CreatePost />} />
         <Route exact path="/post/:id" element={<PostPage />} />
+        <Route exact path="/edit/:id" element={<EditPost />} />
+        <Route exact path="/delete/:id" element={<Postdelete /> } />
       </Routes>
     </UserContextProvider>
   );

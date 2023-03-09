@@ -1,22 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 
 import axios from "axios";
 import Footer from "../components/Footer";
-import UserContext from "../components/UserContext";
 
 // backend domain
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 function PostPage() {
   const params = useParams();
+  const [userInfo,setUserInfo] = useState()
   const [postInfo, setPostInfo] = useState(null);
-  const {userInfo} = useContext(UserContext)
   useEffect(() => {
+    axios.get(`/api/profile`,{ headers: { Authorization:localStorage.getItem('token') }})
+      .then(res =>{
+        setUserInfo(res.data)
+      })
+      .catch(err => console.log(err))
+
     axios
       .get(`/api/blogpage/${params.id}`)
       .then((response) => {
         setPostInfo(response.data);
+        
       })
       .catch((error) => {
         console.error(error);
@@ -25,10 +31,22 @@ function PostPage() {
 
   if (!postInfo) return "";
 
+
+
   return (
     <>
       <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
         <h1 className="ml-2 font-bold ">MyBlog</h1>
+        {postInfo.author._id === userInfo.userId && (
+          <div>
+            <Link to={`/edit/${postInfo._id}`}>
+            <button className="ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300">Edit Post</button>
+            </Link>
+            <Link to={`/delete/${params.id}`}>
+            <button  className="ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300">Delete Post</button>
+            </Link>
+          </div>
+        )}
       </div>
       <main className=" max-[100%] bg-gray-200 ">
         <h3 className="pt-4 text-2xl md:text-3xl text-center font-semibold ">
@@ -38,16 +56,19 @@ function PostPage() {
           <a href="#" className="author mr-3">
             by {postInfo.author.username}
           </a>
+          
           <time>
+          
             {format(new Date(postInfo.createdAt), "MMM d yyyy hh:mmaaa")}
           </time>
         </div>
+        
         <div>
-            {userInfo.id}
+            
           <img
             src={"http://localhost:8080/" + postInfo.cover}
             className="mx-auto h-[60vh] py-4 w-full object-contain "
-            alt="cover image"
+            alt="cover"
           />
         </div>
         <div className="content md:mx-8 pl-3 pb-5">
