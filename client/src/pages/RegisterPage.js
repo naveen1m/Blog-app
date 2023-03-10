@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
+import { toast, Toaster } from 'react-hot-toast';
+
 
 // backend domain
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
@@ -21,25 +23,32 @@ function RegisterPage() {
     setPassword(event.target.value)
   }
 
-  function handleSubmit(event){
+ async function handleSubmit(event){
     event.preventDefault();
     const user = {
       username:username,
       email: email,
       password: password,
     };
-    axios.post('/api/register', user)
+   await axios.post('/api/register', user)
       .then(res => {
+        toast.success('Registerd!',{
+          duration: 5000
+        })
         navigate('/login')
         console.log(`mongo data : ${res.data}`)})
-      .catch(err => console.log(err))
+      .catch(err => {
+        toast.error('Fill everything correctly!')
+        console.log(err)
+      })
       
   }
   return (
     <form onSubmit={handleSubmit}>
     <div className='max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl '>
-      <h1 className='ml-2 font-bold '>MyBlog</h1>
+      <h1 className='ml-2 text-2xl sm:text-xl font-bold '>MyBlog</h1>
     </div>
+    <Toaster position='top-center' />
     <div className="mx-auto my-auto w-[600px] h-[100%]  ">
       <div className="container h-[700px] my-auto flex flex-col  ">
         <div className="flex flex-col mx-auto my-auto gap-3  ">

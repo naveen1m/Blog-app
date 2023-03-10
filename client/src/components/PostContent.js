@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 function PostContent() {
+  const [showText, setShowText] = useState(false)
+  function handleMouseOver(){
+    setShowText(true)
+  }
+  function handleMouseOut(){
+    setShowText(false)
+  }
+  if(showText){
+
+  }
   return (
     <div className="mx-auto md:w-[1550px]   bg-gray-200 mt-5 mb-2 md:grid grid-cols-4 gap-2 rounded hover:shadow-lg hover:translate-y-[0.03rem] ">
       <div className="col-span-1 mx-auto my-auto p-1">
@@ -10,11 +20,12 @@ function PostContent() {
         />
       </div>
       <div className="col-span-3 p-[0.5px] sm:mx-auto ">
-        <h3 className="font-semibold">
+        <h3 onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="font-semibold hover:text-blue-500">
           Weird things we all did as kids but never talk about
         </h3>
-        <p className="info text-xs px-4">
-            <a href="#" className="author mr-3">Naveen kumar</a>
+        {showText && <p className="w-max text-xs bg-white text-red-600 hover:block">This is a dummy data, will not show content!</p>}
+        <p className="italic text-xs px-4">
+            <a href="#" className="author mr-3 ">by Naveen kumar</a>
             <time>2021-03-04 5:37</time>
         </p>
         <p className="leading-5 ">

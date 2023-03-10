@@ -9,24 +9,33 @@ import Footer from "../components/Footer";
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 function PostPage() {
   const params = useParams();
+  const token = localStorage.getItem('token')
   const [userInfo,setUserInfo] = useState()
   const [postInfo, setPostInfo] = useState(null);
-  useEffect(() => {
-    axios.get(`/api/profile`,{ headers: { Authorization:localStorage.getItem('token') }})
-      .then(res =>{
-        setUserInfo(res.data)
+
+  const fetchData = async () => {
+   await axios.get(`/api/profile`,{ headers: { Authorization:localStorage.getItem('token') }})
+      .then(async res =>{
+        const info = await res.data
+        setUserInfo(info)
       })
       .catch(err => console.log(err))
 
-    axios
+   await axios
       .get(`/api/blogpage/${params.id}`)
-      .then((response) => {
-        setPostInfo(response.data);
+      .then(async (response) => {
+        const info = await response.data
+        setPostInfo(info);
         
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+  
+  useEffect(()=>{
+    
+    fetchData();
   }, []);
 
   if (!postInfo) return "";
@@ -35,17 +44,19 @@ function PostPage() {
 
   return (
     <>
+      
       <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-        <h1 className="ml-2 font-bold ">MyBlog</h1>
-        {postInfo.author._id === userInfo.userId && (
+       <Link to={'/'}> <h1 className="ml-2 text-2xl sm:text-xl font-bold hover:text-blue-500 ">MyBlog</h1></Link>
+       
+        { token && (postInfo.author._id === userInfo.userId && (
           <div>
             <Link to={`/edit/${postInfo._id}`}>
             <button className="ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300">Edit Post</button>
             </Link>
             <Link to={`/delete/${params.id}`}>
-            <button  className="ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300">Delete Post</button>
+            <button className="ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300">Delete Post</button>
             </Link>
-          </div>
+          </div>)
         )}
       </div>
       <main className=" max-[100%] bg-gray-200 ">
@@ -81,6 +92,7 @@ function PostPage() {
         </div>
       </main>
       <Footer />
+       
     </>
   );
 }

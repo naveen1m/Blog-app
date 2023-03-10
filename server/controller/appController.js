@@ -56,36 +56,27 @@ export async function login(req, res, next) {
 }
 export async function profile(req, res, next) {
   const token = req.headers.authorization;
-  console.log(`login token: ${token}`);
   await jwt.verify(token, env.JWT_SECRET, {}, async (err, info) => {
     if (err) {
-      console.log(`token inside: ${token}`);
       return res.status(401).json({ message: "Invalid token" });
     }
     res.json(info);
   });
 }
 export async function getblog(req, res, next) {
-  //    const allPost = await postModel.find({}).populate({path: 'author', model: 'User', select:'username'})
   const allPost = await postModel
     .find()
     .populate("author", ["username", "userId"])
     .sort({ createdAt: -1 })
     .limit(13);
 
-  console.log(allPost);
-
-  //    console.log(postModel.populated('author'))
-  //    console.log(allPost.author)
-  //    console.log('all post :- ' + allPost)
-  //    res.json(allPost)
+  // console.log(allPost);
   res.json(allPost);
 }
 export async function postblog(req, res, next) {
   const { title, summary, content } = req.body;
   const token = req.headers.authorization;
 
-  console.log(req.headers.authorization);
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
@@ -96,7 +87,6 @@ export async function postblog(req, res, next) {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
-    // console.log(`info :- ${info.username}`)
     const postDoc = new postModel({
       title,
       summary,
@@ -104,14 +94,10 @@ export async function postblog(req, res, next) {
       cover: newPath,
       author: info.userId,
     });
-    // console.log("username " + postDoc.author.username)
     const result = postDoc.save();
-    // console.log(result)
     res.json(result);
   });
 
-  // res.json(`title : ${title}, summary:  ${summary}, content: ${content}`)
-  // res.json({files: req.file})
 }
 export async function blogpage(req, res, next) {
   const { id } = req.params;
@@ -137,9 +123,7 @@ await jwt.verify(token, env.JWT_SECRET, {}, async (err, info) => {
     }
     
     const postDoc = await postModel.findById(id);
-    // console.log(postDoc.author)
-    // console.log(postDoc.author._id)
-    console.log(info)
+
     const isAuthor = JSON.stringify(postDoc.author._id) === JSON.stringify(info.userId)
     if(!isAuthor){
         return res.status(400).json('you are not author')
@@ -156,7 +140,7 @@ await jwt.verify(token, env.JWT_SECRET, {}, async (err, info) => {
 export async function deleteblog(req, res, next) {
   const {id} = req.params
   try {
-  const result = await postModel.findByIdAndDelete(id);
+  const post = await postModel.findByIdAndDelete(id);
   res.status(200).json({ message: 'Blog post deleted successfully.' });
   } catch (error) {
     res.status(500).json({ message: 'An error occurred while deleting'})

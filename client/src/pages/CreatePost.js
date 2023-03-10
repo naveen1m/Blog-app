@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Editor from "../components/Editor";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 // backend domain
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
@@ -25,16 +26,19 @@ export default function CreatePost() {
     await axios
       .post("/api/postblog", data, { headers: { Authorization:localStorage.getItem('token') }})
       .then((res) =>{ 
-        console.log(res.data + " -done")
         navigate('/')
+
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error('Something went wrong!')
+        console.log(err)});
   }
   return (
     <>
       <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
         <h1 className="ml-2 font-bold ">MyBlog</h1>
       </div>
+      <Toaster position="top-center" />
       <form onSubmit={createNewPost} className="mx-auto md:w-[800px] mt-2">
         <input
           type="title"

@@ -10,9 +10,6 @@ function PostDemo() {
   return (
     <>
       <PostContent />
-      <PostContent />
-      <PostContent />
-      <PostContent />
       
     </> 
   )

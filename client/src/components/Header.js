@@ -1,31 +1,43 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios'
+import { Link, useNavigate } from "react-router-dom";
+
+import { toast, Toaster } from "react-hot-toast";
 
 function Header() {
   const token = localStorage.getItem("token");
+  console.log('token in header: ' + token)
+  const navigate = useNavigate();
 
-    
+  function logoutToast(){
+    localStorage.removeItem('token');
+    toast.success('logged out!',{
+      duration:2000
+    })
+    navigate('/')
+  }
 
   return (
     <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-      <h1 className="ml-2 font-bold ">MyBlog</h1>
+      <h1 className="ml-2 text-2xl sm:text-xl font-bold ">MyBlog</h1>
       {token && (
         <>
+        
           <Link
             to="/create"
             className="ml-3 px-1 rounded-sm hover:bg-slate-300 "
           >
             create new post
           </Link>
-          <Link
-            to="/logout"
+          <button
+            onClick={logoutToast}
             className="ml-3 px-1 rounded-sm  hover:bg-slate-300"
           >
             logout
-          </Link>
+          </button>
+          
         </>
       )}
+      <Toaster position="top-center"  />
       {!token && (
         <Link
           to="/login"

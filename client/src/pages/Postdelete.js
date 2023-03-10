@@ -15,9 +15,9 @@ function Postdelete() {
       .catch(err => console.log(err))
 
       setTimeout(()=>{
-        localStorage.removeItem('token');
         setLoading(false)
         navigate('/')
+        
     },600)
 
     },[])

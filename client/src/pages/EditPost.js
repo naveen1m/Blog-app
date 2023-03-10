@@ -53,7 +53,7 @@ export default function EditPost() {
   return (
     <>
       <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-        <h1 className="ml-2 font-bold ">MyBlog</h1>
+        <h1 className="ml-2 text-2xl sm:text-xl font-bold ">MyBlog</h1>
       </div>
       <form onSubmit={updatePost} className="mx-auto md:w-[800px] mt-2">
         <input

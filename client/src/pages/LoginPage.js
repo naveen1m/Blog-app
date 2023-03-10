@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -23,17 +24,24 @@ function LoginPage() {
       .then(res =>{
         const token = res.data.token;
         localStorage.setItem("token" ,token)
+        toast.success('Welcome!',{
+          duration:5000
+        })
         navigate('/')
         console.log(`logged in data : ${res.data}`)
       } )
-      .catch(err => console.log('not logged in'+err))
+      .catch(err =>{
+        toast.error('invalid credentials!')
+        console.log('not logged in'+err)})
+
+      
 
     }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-        <h1 className="ml-2 font-bold ">MyBlog</h1>
+        <h1 className="ml-2  text-2xl sm:text-xl font-bold ">MyBlog</h1>
       </div>
       <div className="mx-auto my-auto w-[600px] h-[100%]  ">
         <div className="container  h-[700px] my-auto flex flex-col  ">
@@ -60,6 +68,7 @@ function LoginPage() {
             >
               Sign in
             </button>
+            <Toaster position="top-center"/>
             <p className="text-center">
               No account?
               <Link to="/register"> <span className="text-[#4c4cd3] hover:text-[blue] hover:underline duration-300">Register</span>
