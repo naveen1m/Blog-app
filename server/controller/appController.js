@@ -5,9 +5,15 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'
 import fs from "fs";
+import cloudinary from 'cloudinary'
 
 dotenv.config();
 const jwtSecret = process.env.JWT_SECRET
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME ,
+    api_key: process.env.CLOUDINARY_API_KEY ,
+    api_secret: process.env.CLOUDINARY_API_SECRET, 
+})
 
 export async function register(req, res, next) {
   const { username, email, password } = req.body;
@@ -73,38 +79,46 @@ export async function getblog(req, res, next) {
     .sort({ createdAt: -1 })
     .limit(13);
 
-  // console.log(allPost);
+  // console.log(`allPost :- ${allPost.author}`);
   res.json(allPost);
 }
 export async function postblog(req, res, next) {
   const { title, summary, content } = req.body;
+  const {originalname, path} = req.file;
   const token = req.headers.authorization;
-
-  const { originalname, path } = req.file;
-  const parts = originalname.split(".");
-  const ext = parts[parts.length - 1];
-  const newPath = path + "." + ext;
-  fs.renameSync(path, newPath);
-
-  await jwt.verify(token, jwtSecret, {}, async (err, info) => {
-    if (err) {
-      return res.status(401).json({ message: "Invalid token" });
-    }
+ 
+  try {
+    const result = await cloudinary.uploader.upload(path, {folder: 'uploads' })
+    console.log(result)
+    await jwt.verify(token, jwtSecret, {}, async (err, info) => {
+      if (err) {
+        return res.status(401).json({ message: "Invalid token" });
+      }
+    
     const postDoc = new postModel({
       title,
       summary,
       content,
-      cover: newPath,
+      cover: {
+        public_id: result.public_id,
+        url: result.secure_url
+      },
       author: info.userId,
     });
-    const result = postDoc.save();
-    res.json(result);
-  });
+    // console.log(author)
+    console.log(postDoc)
+    const final = postDoc.save();
+    res.json(final);
+  })
+  } catch (error) {
+    console.log(`cloudinary error ${error}`)
+    
+  } 
 
 }
 export async function blogpage(req, res, next) {
   const { id } = req.params;
-  const postDoc = await postModel.findById(id).populate("author");
+  const postDoc = await postModel.findById(id).populate("author",['username']);
   res.json(postDoc);
 }
 export async function editblog(req, res, next) {
@@ -114,10 +128,8 @@ export async function editblog(req, res, next) {
     let newPath = null
   if (req.file) {
     const { originalname, path } = req.file;
-    const parts = originalname.split(".");
-    const ext = parts[parts.length - 1];
-    newPath = path + "." + ext;
-    fs.renameSync(path, newPath);
+     newPath = await cloudinary.uploader.upload(path, {folder: 'uploads' })
+    
   }
 
 await jwt.verify(token, jwtSecret, {}, async (err, info) => {
@@ -135,7 +147,10 @@ await jwt.verify(token, jwtSecret, {}, async (err, info) => {
         title,
         summary,
         content,
-        cover: newPath ? newPath : postDoc.cover,
+        cover: newPath ? {
+          public_id: newPath.public_id,
+          url: newPath.secure_url
+        } : postDoc.cover,
     })
     res.json(postDoc)
   });

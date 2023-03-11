@@ -8,7 +8,10 @@ const postSchema = new Schema(
     title: String,
     summary: String,
     content: String,
-    cover: String,
+    cover: {
+      public_id: { type: String },
+      url: {type: String}
+    },
     author: {
       type: Schema.Types.ObjectId,
       ref: User,

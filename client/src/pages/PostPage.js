@@ -80,7 +80,7 @@ function PostPage() {
         <div>
             
           <img
-            src={"http://localhost:8080/" + postInfo.cover}
+            src={postInfo.cover.url}
             className="mx-auto h-[60vh] py-4 w-full object-contain "
             alt="cover"
           />

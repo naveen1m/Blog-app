@@ -8,7 +8,7 @@ dotenv.config();
 
 
 
-const port = process.env.PORT || '8080'
+const port = process.env.PORT || 5000
 /** middlewares */
 const app = express();
 const __dirname = path.resolve();
