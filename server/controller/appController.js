@@ -3,8 +3,11 @@ import postModel from "../model/postSchema.js";
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import env from "../config.js";
+import dotenv from 'dotenv'
 import fs from "fs";
+
+dotenv.config();
+const jwtSecret = process.env.JWT_SECRET
 
 export async function register(req, res, next) {
   const { username, email, password } = req.body;
@@ -42,7 +45,7 @@ export async function login(req, res, next) {
             userId: user._id,
             username: user.username,
           },
-          env.JWT_SECRET,
+          jwtSecret,
           { expiresIn: "24h" }
         );
         return res.status(200).send({
@@ -56,7 +59,7 @@ export async function login(req, res, next) {
 }
 export async function profile(req, res, next) {
   const token = req.headers.authorization;
-  await jwt.verify(token, env.JWT_SECRET, {}, async (err, info) => {
+  await jwt.verify(token, jwtSecret, {}, async (err, info) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
@@ -83,7 +86,7 @@ export async function postblog(req, res, next) {
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
-  await jwt.verify(token, env.JWT_SECRET, {}, async (err, info) => {
+  await jwt.verify(token, jwtSecret, {}, async (err, info) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
@@ -117,7 +120,7 @@ export async function editblog(req, res, next) {
     fs.renameSync(path, newPath);
   }
 
-await jwt.verify(token, env.JWT_SECRET, {}, async (err, info) => {
+await jwt.verify(token, jwtSecret, {}, async (err, info) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
