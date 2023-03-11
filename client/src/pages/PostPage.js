@@ -68,7 +68,7 @@ function PostPage() {
         </h3>
         <div className="text-center italic">
           <a href="#" className="author mr-3">
-            by {postInfo.author.username}
+            {/* by {postInfo.author.username} */}
           </a>
           
           <time>
