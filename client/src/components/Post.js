@@ -25,7 +25,7 @@ function Post({_id,title,cover,summary,content,createdAt,author}) {
                 {format(new Date(createdAt), "MMM d yyyy hh:mmaaa")}
               </time>
             </p>
-            <p className="leading-5 ">{summary}</p>
+            <p className="leading-5 text-[1.18rem]">{summary}</p>
           </div>
         </div>
       

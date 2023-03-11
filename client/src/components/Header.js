@@ -5,7 +5,7 @@ import { toast, Toaster } from "react-hot-toast";
 
 function Header() {
   const token = localStorage.getItem("token");
-  console.log('token in header: ' + token)
+  // console.log('token in header: ' + token)
   const navigate = useNavigate();
 
   function logoutToast(){
@@ -18,19 +18,19 @@ function Header() {
 
   return (
     <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-      <h1 className="ml-2 text-2xl sm:text-xl font-bold ">MyBlog</h1>
+      <h1 className="ml-2 md:text-2xl text-xl text-gray-200 font-bold ">MyBlog</h1>
       {token && (
         <>
         
           <Link
             to="/create"
-            className="ml-3 px-1 rounded-sm hover:bg-slate-300 "
+            className="ml-3 px-1 text-xl rounded-sm hover:bg-slate-300 "
           >
             create new post
           </Link>
           <button
             onClick={logoutToast}
-            className="ml-3 px-1 rounded-sm  hover:bg-slate-300"
+            className="ml-3 px-1 rounded-sm text-xl  hover:bg-slate-300"
           >
             logout
           </button>
@@ -41,7 +41,7 @@ function Header() {
       {!token && (
         <Link
           to="/login"
-          className="ml-3 px-1 rounded-sm   hover:bg-slate-300 duration-300"
+          className="ml-3 px-1 rounded-sm text-xl   hover:bg-slate-300 duration-300"
         >
           Login
         </Link>

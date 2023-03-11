@@ -12,6 +12,7 @@ import PostDemo from "./pages/PostDemo";
 import EditPost from "./pages/EditPost";
 import Postdelete from "./pages/Postdelete";
 import PageNotFound from "./pages/PageNotFound";
+import ProtectRoute, { AuthorizeUser } from "./middleware/ProtectRoute";
 
 const router = createBrowserRouter([
   {
@@ -27,27 +28,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <AuthorizeUser><LoginPage /></AuthorizeUser> ,
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: <AuthorizeUser><RegisterPage /></AuthorizeUser>,
   },
   {
     path: "/create",
-    element: <CreatePost />,
+    element: <ProtectRoute > <CreatePost /> </ProtectRoute>,
   },
   {
     path: "/post/:id",
-    element: <PostPage />,
+    element: <ProtectRoute ><PostPage /></ProtectRoute> ,
   },
   {
     path: "/edit/:id",
-    element: <EditPost />,
+    element: <ProtectRoute><EditPost /></ProtectRoute> ,
   },
   {
     path: "/delete/:id",
-    element: <Postdelete />,
+    element: <ProtectRoute><Postdelete /></ProtectRoute> ,
   },
 
   {

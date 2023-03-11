@@ -3,6 +3,11 @@ import cors from 'cors';
 import connect from "./database/mongodbConnection.js";
 import router from "./router/route.js";
 import path from 'path'
+import dotenv from 'dotenv'
+
+dotenv.config();
+const dbUsername = process.env.DB_USERNAME
+const dbPass = process.env.DB_PASSWORD
 
 
 const port = process.env.PORT || '8080'
@@ -23,7 +28,7 @@ app.get('/',(req,res)=>{
 app.use('/api',router)
 
 /** start server only when we have valid db connection */
-connect().then(()=>{
+connect(dbUsername, dbPass).then(()=>{
     try {
         app.listen(port, ()=>{
             console.log(`server running at http://localhost:${port}`)

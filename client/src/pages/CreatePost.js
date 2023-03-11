@@ -36,7 +36,7 @@ export default function CreatePost() {
   return (
     <>
       <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-        <h1 className="ml-2 font-bold ">MyBlog</h1>
+        <h1 className="ml-2 md:text-2xl text-gray-200 text-xl font-bold ">MyBlog</h1>
       </div>
       <Toaster position="top-center" />
       <form onSubmit={createNewPost} className="mx-auto md:w-[800px] mt-2">

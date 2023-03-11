@@ -46,11 +46,11 @@ function RegisterPage() {
   return (
     <form onSubmit={handleSubmit}>
     <div className='max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl '>
-      <h1 className='ml-2 text-2xl sm:text-xl font-bold '>MyBlog</h1>
+     <Link to={'/'}><h1 className='ml-2 text-gray-200 md:text-2xl my:auto  text-xl font-bold hover:text-blue-500'>MyBlog</h1></Link> 
     </div>
     <Toaster position='top-center' />
-    <div className="mx-auto my-auto w-[600px] h-[100%]  ">
-      <div className="container h-[700px] my-auto flex flex-col  ">
+    <div className="mx-auto my-auto sm:w-full sm:max-w-md md:w-[600px] md:h-[100%]  ">
+        <div className="container sm:w-full sm:max-w-md md:h-[700px] my-auto  min-h-[80vh] flex flex-col  ">
         <div className="flex flex-col mx-auto my-auto gap-3  ">
             <h1 className='text-2xl tracking-wide font-semibold text-center'>Register here!</h1>
           <label  htmlFor="name">

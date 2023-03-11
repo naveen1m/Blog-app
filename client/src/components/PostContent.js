@@ -19,7 +19,7 @@ function PostContent() {
           alt="image1"
         />
       </div>
-      <div className="col-span-3 p-[0.5px] sm:mx-auto ">
+      <div className="col-span-3 p-[0.5px] text-xl sm:mx-auto ">
         <h3 onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="font-semibold hover:text-blue-500">
           Weird things we all did as kids but never talk about
         </h3>
@@ -28,11 +28,9 @@ function PostContent() {
             <a href="#" className="author mr-3 ">by Naveen kumar</a>
             <time>2021-03-04 5:37</time>
         </p>
-        <p className="leading-5 ">
+        <p className="leading-5 text-[1.18rem] ">
           The mind of a child works in wonderful and mysterious ways. Their
-          imaginations run freely, untethered by the bounds of logic or fact. A
-          simple cardboard box can become a fantasy world in another dimension,
-          and a bottle of Coke can become a glass of Pinot. While habits vary
+          imaginations run freely, untethered by the bounds of logic or fact. While habits vary
           greatly between different countries and cultures, there are certain
           experiences that most of us can relate to. Children are children
           wherever they are, and as such, they seem to be drawn to the same

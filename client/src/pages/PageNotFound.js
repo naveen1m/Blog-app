@@ -13,7 +13,7 @@ function PageNotFound() {
   return (
     <>
         <div className="max-[100%] py-auto  flex flex-row  mx-auto bg-gray-500 h-7 shadow-xl ">
-        <Link to={'/'}> <h1 className="ml-2 text-2xl sm:text-xl font-bold hover:text-blue-500 ">MyBlog</h1></Link>
+        <Link to={'/'}> <h1 className="ml-2 text-gray-200 md:text-2xl text-xl font-bold hover:text-blue-500 ">MyBlog</h1></Link>
         </div>
         <Toaster position='top-center' />
         {/* <ToastContainer position='top-center' /> */}
