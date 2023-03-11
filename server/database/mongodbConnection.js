@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
 // import { MongoMemoryServer } from "mongodb-memory-server";
-
+dotenv.config();
 async function connect(username,pass){
-    const uri = `mongodb+srv://${username}:${pass}@cluster0.9wqgktu.mongodb.net/?retryWrites=true&w=majority`
+    const uri = process.env.DB_URI;
     try {
         await mongoose.connect(uri,{useNewUrlParser:true})
         console.log(`db connected successfully.`)
