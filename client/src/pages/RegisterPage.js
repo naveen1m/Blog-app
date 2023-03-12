@@ -38,7 +38,8 @@ function RegisterPage() {
         navigate('/login')
         console.log(`mongo data : ${res.data}`)})
       .catch(err => {
-        toast.error('Fill everything correctly!')
+        
+        toast.error('Could not register!')
         console.log(err)
       })
       

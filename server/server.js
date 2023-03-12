@@ -4,6 +4,7 @@ import connect from "./database/mongodbConnection.js";
 import router from "./router/route.js";
 import path from 'path'
 import dotenv from 'dotenv'
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 
@@ -14,6 +15,7 @@ const app = express();
 const __dirname = path.resolve();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser())
 app.disable('x-powered-by');  // less hacker know about our stack
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 

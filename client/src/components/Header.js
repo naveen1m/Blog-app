@@ -1,19 +1,31 @@
 import React from "react";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 
 import { toast, Toaster } from "react-hot-toast";
+import axios from "axios";
+
+// backend domain
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 function Header() {
-  const token = localStorage.getItem("token");
+  const token = Cookies.get("token");
   // console.log('token in header: ' + token)
   const navigate = useNavigate();
 
-  function logoutToast(){
-    localStorage.removeItem('token');
-    toast.success('logged out!',{
-      duration:2000
-    })
-    navigate('/')
+ async function logoutToast(){
+    Cookies.remove('token');
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    await axios.post('/api/logout')
+            .then(
+              toast.success('logged out!',{
+                duration:2000
+              }),
+              navigate('/')
+            )
+            .catch(err => console.log(`logout err: ${err}`))
+    
   }
 
   return (

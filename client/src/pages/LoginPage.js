@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from 'js-cookie'
 import { toast, Toaster } from "react-hot-toast";
 
 function LoginPage() {
@@ -8,6 +9,9 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
+// backend domain
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
   function handleEmailChange(event) {
     setEmail(event.target.value);
   }
@@ -23,7 +27,9 @@ function LoginPage() {
     axios.post('/api/login', user,{ headers: { Authorization:localStorage.getItem('token') } })
       .then(res =>{
         const token = res.data.token;
-        localStorage.setItem("token" ,token)
+        Cookies.set('token' ,token, { expires: 1/48 })
+        
+        // localStorage.setItem("token" ,token)
         toast.success('Welcome!',{
           duration:5000
         })

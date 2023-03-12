@@ -1,6 +1,6 @@
 import userModel from "../model/userSchema.js";
 import postModel from "../model/postSchema.js";
-
+import cookieParser from "cookie-parser";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'
@@ -54,6 +54,8 @@ export async function login(req, res, next) {
           jwtSecret,
           { expiresIn: "24h" }
         );
+        // set token in cookies
+        res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 3600000 });
         return res.status(200).send({
           msg: "login successful...!",
           username: user.username,
@@ -85,14 +87,14 @@ export async function getblog(req, res, next) {
 export async function postblog(req, res, next) {
   const { title, summary, content } = req.body;
   const {originalname, path} = req.file;
-  const token = req.headers.authorization;
- 
+  const token = req.headers.authorization; 
+//  console.log(token)
   try {
     const result = await cloudinary.uploader.upload(path, {folder: 'uploads' })
-    console.log(result)
+    // console.log(result)
     await jwt.verify(token, jwtSecret, {}, async (err, info) => {
       if (err) {
-        return res.status(401).json({ message: "Invalid token" });
+        return res.status(401).json({ message: "Invalid token",err });
       }
     
     const postDoc = new postModel({
@@ -106,7 +108,7 @@ export async function postblog(req, res, next) {
       author: info.userId,
     });
     // console.log(author)
-    console.log(postDoc)
+    // console.log(postDoc)
     const final = postDoc.save();
     res.json(final);
   })
@@ -162,5 +164,13 @@ export async function deleteblog(req, res, next) {
   res.status(200).json({ message: 'Blog post deleted successfully.' });
   } catch (error) {
     res.status(500).json({ message: 'An error occurred while deleting'})
+  }
+}
+export async function logout(req,res,next){
+
+  try {
+    res.clearCookie('token')
+  } catch (error) {
+    console.log(error)
   }
 }

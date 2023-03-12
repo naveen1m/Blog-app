@@ -7,10 +7,7 @@ function Post({_id,title,cover,summary,content,createdAt,author}) {
   return (
   
     <div className="mx-auto md:w-[1550px] text-left  bg-gray-200 mt-5 mb-2 md:grid grid-cols-4 gap-2 rounded hover:shadow-lg hover:translate-y-[0.03rem] sm:pl-1 ">
-      {/* {console.log(author['username'])} */}
-      {/* {console.log(username)} */}
-      {/* {console.log(author) } */}
-      {/* {console.log(`image url ${cover.url}`)} */}
+      
           <div className="col-span-1 mx-auto my-auto p-1">
             <Link to={`/post/${_id}`}>
             <img className="h-[33vh] " src={cover.url} alt="image1" />
@@ -24,7 +21,7 @@ function Post({_id,title,cover,summary,content,createdAt,author}) {
             
             <p className="info italic text-xs px-4 w-max">
               <a href="#" className="author mr-3 ">
-                {/* by {author.username} */}
+                by {author.username}
               </a>
               <time>
                 {format(new Date(createdAt), "MMM d yyyy hh:mmaaa")}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
-
+import Cookies from "js-cookie";
 import axios from "axios";
 import Footer from "../components/Footer";
 
@@ -15,7 +15,7 @@ function PostPage() {
 
 
   const fetchData = async () => {
-   await axios.get(`/api/profile`,{ headers: { Authorization:localStorage.getItem('token') }})
+   await axios.get(`/api/profile`,{ headers: { Authorization:Cookies.get('token') }})
       .then(async res =>{
         const info = await res.data
         
@@ -68,7 +68,7 @@ function PostPage() {
         </h3>
         <div className="text-center italic">
           <a href="#" className="author mr-3">
-            {/* by {postInfo.author.username} */}
+            by {postInfo.author.username}
           </a>
           
           <time>

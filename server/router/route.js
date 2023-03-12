@@ -15,6 +15,7 @@ router.route('/getblog').get(controller.getblog);
 router.route('/blogpage/:id').get(controller.blogpage)
 router.route('/editblog').put(updloadmiddleware.single('file'), controller.editblog);
 router.route('/deleteblog/:id').delete(controller.deleteblog);
+router.route('/logout').post(controller.logout)
 
 
 export default router;

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Editor from "../components/Editor";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 // backend domain
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
@@ -44,7 +45,7 @@ export default function EditPost() {
     }
 
     await axios
-      .put("/api/editblog", data, { headers: { Authorization:localStorage.getItem('token') }})
+      .put("/api/editblog", data, { headers: { Authorization:Cookies.get('token') }})
       .then((res) =>{
         toast.success('updated!')
         navigate(`/post/${params.id}`)
