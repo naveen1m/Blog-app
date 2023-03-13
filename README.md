@@ -31,7 +31,7 @@
 <ul><li>Node.js</li><li>MongoDb database</li></ul>
 <h2>Installations</h2>
 <ol>
-<li>Clone the repository git clone git@github.com:stupiddint/Blog-app.git</li>
+<li>Clone the repository: git clone git@github.com:stupiddint/Blog-app.git</li>
 <li>Navigate to the project directory</li>
 <li>Install NPM packages: npm install</li>
 <li>Start the server: npm start</li>
